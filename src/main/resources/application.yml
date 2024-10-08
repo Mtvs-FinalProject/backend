@@ -25,7 +25,6 @@ spring:
     access-key: root
     secret-key: 1234
     bucket: bloc # 사용하려는 버킷 이름
-    secure: false # HTTP 사용
 
 
 logging:
