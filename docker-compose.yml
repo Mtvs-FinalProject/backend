@@ -1,29 +1,26 @@
-version: '3.8'
-
 services:
   temurin:
     image: eclipse-temurin:17-jdk
     container_name: temurin-container
     volumes:
-      - ./app:/usr/src/app
-    working_dir: /usr/src/app
-    command: ["java", "-jar", "your-app.jar"] # 여기서 your-app.jar을 실행할 자바 애플리케이션으로 변경하세요
+      - ./build/libs:/app
+    working_dir: /app
+    command: ["java", "-jar", "cubic-server.jar"]
     ports:
-      - "8080:8080" # 필요에 맞게 포트를 설정하세요
-    profiles: ["dep"] # 프로파일을 설정하세요
+      - "8080:8080"
 
   minio:
     image: minio/minio
     container_name: minio-container
     environment:
-      MINIO_ROOT_USER: "adminuser" # 기본 관리자 사용자 이름
-      MINIO_ROOT_PASSWORD: "strongpassword" # 기본 관리자 비밀번호
+      MINIO_ROOT_USER: "adminuser"
+      MINIO_ROOT_PASSWORD: "strongpassword"
     volumes:
-      - ./minio-data:/data # 데이터를 저장할 로컬 디렉토리와 마운트
+      - ./minio-data:/data
     ports:
-      - "9005:9000" # MinIO는 기본적으로 9000 포트를 사용
+      - "9005:9000"
     command: server /data
-    profiles: ["dep", "dev"]
+    profiles: ["dev"]
 
 
   postgresql:
@@ -37,5 +34,5 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432" # PostgreSQL은 기본적으로 5432 포트를 사용
-    profiles: [ "dep", "dev" ]
+    profiles: ["dev"]
 

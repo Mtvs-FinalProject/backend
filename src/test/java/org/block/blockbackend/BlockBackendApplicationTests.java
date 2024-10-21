@@ -1,10 +1,10 @@
-package org.block.blockbackend2;
+package org.block.blockbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BlockBackend2ApplicationTests {
+class BlockBackendApplicationTests {
 
     @Test
     void contextLoads() {

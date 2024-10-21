@@ -1,4 +1,4 @@
-package org.block.blockbackend2.config;
+package org.block.blockbackend.core.config;
 
 import io.minio.*;
 import lombok.extern.slf4j.Slf4j;

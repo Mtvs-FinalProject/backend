@@ -1,13 +1,13 @@
-package org.block.blockbackend2;
+package org.block.blockbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BlockBackend2Application {
+public class BlockBackendApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BlockBackend2Application.class, args);
+        SpringApplication.run(BlockBackendApplication.class, args);
     }
 
 }
