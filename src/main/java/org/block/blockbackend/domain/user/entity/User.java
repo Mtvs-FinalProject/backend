@@ -9,8 +9,7 @@ import org.checkerframework.checker.units.qual.C;
 import java.sql.Timestamp;
 
 @Entity
-@Table
-@AllArgsConstructor
+@Table(name="users")
 @NoArgsConstructor
 @Getter
 public class User {
@@ -38,6 +37,16 @@ public class User {
     @Column(name="create_at", nullable = false)
     private Timestamp createAT;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Role role;
+
+    public User(String id, String passwd, String name, int credit, Timestamp lastConnectTime, Timestamp createAT, Role role) {
+        this.id = id;
+        this.passwd = passwd;
+        this.name = name;
+        this.credit = credit;
+        this.lastConnectTime = lastConnectTime;
+        this.createAT = createAT;
+        this.role = role;
+    }
 }
