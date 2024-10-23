@@ -24,8 +24,6 @@ public class UserService {
                 signUpDTO.getPasswd(),
                 signUpDTO.getName(),
                 3000,
-                new Timestamp(System.currentTimeMillis()),
-                new Timestamp(System.currentTimeMillis()),
                 Role.USER
         );
 

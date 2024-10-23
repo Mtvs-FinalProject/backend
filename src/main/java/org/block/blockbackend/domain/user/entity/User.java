@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.checkerframework.checker.units.qual.C;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -31,22 +33,22 @@ public class User {
     @Column(nullable = false)
     private int credit;
 
+    @UpdateTimestamp
     @Column(name="last_connectect_time")
     private Timestamp lastConnectTime;
 
+    @CreationTimestamp
     @Column(name="create_at", nullable = false)
     private Timestamp createAT;
 
     @Column(nullable = false)
     private Role role;
 
-    public User(String id, String passwd, String name, int credit, Timestamp lastConnectTime, Timestamp createAT, Role role) {
+    public User(String id, String passwd, String name, int credit, Role role) {
         this.id = id;
         this.passwd = passwd;
         this.name = name;
         this.credit = credit;
-        this.lastConnectTime = lastConnectTime;
-        this.createAT = createAT;
         this.role = role;
     }
 }
