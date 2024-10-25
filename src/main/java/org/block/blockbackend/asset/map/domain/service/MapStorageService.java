@@ -8,6 +8,7 @@ import org.block.blockbackend.core.error.ErrorCode;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,7 +20,7 @@ public class MapStorageService {
         this.mapStorageRepository = mapStorageRepository;
     }
 
-    public void storeMapStorage(String mapName, Map<String, Object> json, Integer price, Editable editable, Integer uploader) {
+    public void storeMapStorage(String mapName, List<Map<String, Object>> json, Integer price, Editable editable, Integer uploader) {
         MapInfo mapInfo = new MapInfo(mapName, json, price, editable, uploader, new Timestamp(System.currentTimeMillis()));
         mapStorageRepository.save(mapInfo);
     }

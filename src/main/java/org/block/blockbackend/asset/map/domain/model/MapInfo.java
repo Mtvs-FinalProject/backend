@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -28,7 +29,7 @@ public class MapInfo {
 
     @JdbcTypeCode(SqlTypes.JSON)    // after hibernate 6
     @Column(name="data_table", columnDefinition = "jsonb")
-    private Map<String, Object> dataTable;
+    private List<Map<String, Object>> dataTable;
 
     @ColumnDefault("0")
     @Column(name="price", nullable = false)
@@ -45,7 +46,7 @@ public class MapInfo {
     @Column(name="create_at")
     private Timestamp createAt;
 
-    public MapInfo(String umap, Map<String, Object> dataTable, int price, Editable editable, Integer uploader, Timestamp createAt) {
+    public MapInfo(String umap, List<Map<String, Object>> dataTable, int price, Editable editable, Integer uploader, Timestamp createAt) {
         this.umap = umap;
         this.dataTable = dataTable;
         this.price = price;
