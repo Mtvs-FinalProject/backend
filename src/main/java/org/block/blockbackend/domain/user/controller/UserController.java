@@ -1,12 +1,14 @@
 package org.block.blockbackend.domain.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.block.blockbackend.domain.user.dto.SignUpDTO;
 import org.block.blockbackend.domain.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/api/")
+@RestController
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -17,9 +19,9 @@ public class UserController {
 
     @Operation(summary = "회원가입 api", description = "회원을 등록하는 기능입니다.")
     @PostMapping("signup")
-    public ResponseEntity<?> signup(@RequestBody SignUpDTO signUpDTO) {
+    public ResponseEntity<?> signup(@Valid @RequestBody SignUpDTO signUpDTO) {
         if (signUpDTO.getId() == null || signUpDTO.getPasswd() == null || signUpDTO.getName() == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("가입 정보가 입력되지 않았습니다.");
         }
         userService.registerUser(signUpDTO);
         return ResponseEntity.ok().build();

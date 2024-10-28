@@ -17,7 +17,7 @@ public class SignUpDTO {
             public String id;
 
             @NotBlank(message = "비밀번호를 입력해주세요")
-            @Pattern(regexp = "^(?=.*\\d).{6,}$", message = "비밀번호는 최소 6자 이상이어야 하며, 숫자를 포함해야 합니다.")
+//            @Pattern(regexp = "^(?=.*\\d).{6,}$", message = "비밀번호는 최소 6자 이상이어야 하며, 숫자를 포함해야 합니다.")
             public String passwd;
 
             @NotBlank(message = "닉네임을 입력해 주세요.")
