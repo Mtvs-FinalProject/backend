@@ -36,5 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
+### Docker Container Volumes ###
 /postgres-data
 /minio-data
+/prometheus
+/grafana
