@@ -27,9 +27,25 @@ spring:
     bucket: bloc # 사용하려는 버킷 이름
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
+
+
 logging:
   level:
     org:
       springframework:
         web: DEBUG # 로그 레벨 설정, 필요에 따라 변경 가능
+
+
 
