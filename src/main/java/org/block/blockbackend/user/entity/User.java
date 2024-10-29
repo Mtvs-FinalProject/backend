@@ -1,10 +1,9 @@
-package org.block.blockbackend.domain.user.entity;
+package org.block.blockbackend.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,7 +18,7 @@ public class User {
     @Id
     @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int no;
+    private Integer no;
 
     @Column(nullable = false)
     private String id;
@@ -41,6 +40,8 @@ public class User {
     @Column(name="create_at", nullable = false)
     private Timestamp createAT;
 
+    @ColumnDefault("'USER'")
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 

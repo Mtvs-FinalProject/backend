@@ -1,12 +1,10 @@
-package org.block.blockbackend.domain.user.service;
+package org.block.blockbackend.user.service;
 
-import org.block.blockbackend.domain.user.dto.SignUpDTO;
-import org.block.blockbackend.domain.user.entity.Role;
-import org.block.blockbackend.domain.user.entity.User;
-import org.block.blockbackend.domain.user.repository.UserRepository;
+import org.block.blockbackend.user.dto.SignUpDTO;
+import org.block.blockbackend.user.entity.Role;
+import org.block.blockbackend.user.entity.User;
+import org.block.blockbackend.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
 
 @Service
 public class UserService {

@@ -1,4 +1,4 @@
-package org.block.blockbackend.minio;
+package org.block.blockbackend.asset.map.application.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.block.blockbackend.core.config.MinioService;
+import org.block.blockbackend.asset.map.infrastructure.minio.service.MinioService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,8 +26,8 @@ public class MinioController {
         this.minioService = minioService;
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "파일 업로드", description = "원하는 파일을 서버로 업로드합니다.")
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "파일 업로드 성공",
                     content = @Content(mediaType = "text/plain",

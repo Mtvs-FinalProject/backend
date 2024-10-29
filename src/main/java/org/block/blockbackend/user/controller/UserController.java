@@ -1,9 +1,9 @@
-package org.block.blockbackend.domain.user.controller;
+package org.block.blockbackend.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import org.block.blockbackend.domain.user.dto.SignUpDTO;
-import org.block.blockbackend.domain.user.service.UserService;
+import org.block.blockbackend.user.dto.SignUpDTO;
+import org.block.blockbackend.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
