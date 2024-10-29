@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: block-backend
+  config:
+    import: optional:file:.env[.properties]
   datasource:
     url: jdbc:postgresql://localhost:5432/blocdb
     username: root
@@ -33,3 +35,7 @@ logging:
       springframework:
         web: DEBUG # 로그 레벨 설정, 필요에 따라 변경 가능
 
+
+jwt:
+  expiration_time: 86400000 #1일
+  secret: ${SECRET_KEY}
