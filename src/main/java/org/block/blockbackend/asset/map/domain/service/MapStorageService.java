@@ -25,7 +25,11 @@ public class MapStorageService {
         mapStorageRepository.save(mapInfo);
     }
 
-    public MapInfo getMapStorage(Integer id) {
-        return mapStorageRepository.findById(id).orElseThrow(() -> new ApplicationException(ErrorCode.FILE_NOT_FOUND));
+    public MapInfo getMapStorage(Integer no) {
+        return mapStorageRepository.findById(no).orElseThrow(() -> new ApplicationException(ErrorCode.FILE_NOT_FOUND));
+    }
+
+    public MapInfo getMapStorage(String mapName) {
+        return mapStorageRepository.findMapInfoByUmap(mapName);
     }
 }

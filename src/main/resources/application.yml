@@ -11,7 +11,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create # 개발 중에는 'update', 운영 환경에서는 'none' 또는 'validate'로 설정
+      ddl-auto: update # 개발 중에는 'update', 운영 환경에서는 'none' 또는 'validate'로 설정
     show-sql: true
     database: postgresql
     properties:

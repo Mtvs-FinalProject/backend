@@ -45,14 +45,13 @@ public class MapApiService {
                 uploadDTO.getUploader());
     }
 
-    public DownloadFileDTO PurchaseMap(Integer id) throws Exception {
-        MapInfo mapInfo = mapStorageService.getMapStorage(id);
+    public DownloadFileDTO purchaseMap(Integer no) throws Exception {
+        MapInfo mapInfo = mapStorageService.getMapStorage(no);
         DownloadFileDTO result = new DownloadFileDTO(
                 mapInfo.getNo(),
                 mapInfo.getUmap(),
                 mapInfo.getDataTable()
         );
-
 
         return result;
     }
