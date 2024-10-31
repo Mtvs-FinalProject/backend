@@ -1,4 +1,4 @@
-package org.block.blockbackend.domain.user.controller;
+package org.block.blockbackend.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -6,10 +6,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.block.blockbackend.core.config.UserIdFromToken;
-import org.block.blockbackend.domain.user.dto.LoginDTO;
-import org.block.blockbackend.domain.user.dto.SignUpDTO;
-import org.block.blockbackend.domain.user.dto.UserId;
-import org.block.blockbackend.domain.user.service.UserService;
+import org.block.blockbackend.user.dto.LoginDTO;
+import org.block.blockbackend.user.dto.SignUpDTO;
+import org.block.blockbackend.user.dto.UserId;
+import org.block.blockbackend.user.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

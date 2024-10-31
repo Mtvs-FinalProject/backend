@@ -49,6 +49,10 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
+
+    // hibernate 6: @JdbcTypeCode 사용, @TypeDef 는 deprecated 되었음
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.2.0'
+
 }
 
 tasks.named('test') {

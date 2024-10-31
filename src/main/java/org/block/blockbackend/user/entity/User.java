@@ -1,16 +1,13 @@
-package org.block.blockbackend.domain.user.entity;
+package org.block.blockbackend.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.checkerframework.checker.units.qual.C;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -45,6 +42,8 @@ public class User {
     @Column(name="create_at", nullable = false)
     private LocalDateTime createAT;
 
+    @ColumnDefault("'USER'")
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 

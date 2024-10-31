@@ -1,4 +1,4 @@
-package org.block.blockbackend.domain.user.dto;
+package org.block.blockbackend.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

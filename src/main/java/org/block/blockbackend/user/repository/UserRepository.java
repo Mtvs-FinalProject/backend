@@ -1,6 +1,6 @@
-package org.block.blockbackend.domain.user.repository;
+package org.block.blockbackend.user.repository;
 
-import org.block.blockbackend.domain.user.entity.User;
+import org.block.blockbackend.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
