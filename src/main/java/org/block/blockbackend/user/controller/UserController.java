@@ -31,39 +31,45 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body("가입 정보가 올바르지 않습니다.");
+                    .body(UserResponseBody.signupError());
         }
         userService.registerUser(signUpDTO);
-        return ResponseEntity.ok().body("회원가입 성공");
+        return ResponseEntity.ok().body(UserResponseBody.signupSuccess());
     }
 
     @Operation(summary = "회원 탈퇴 api", description = "회원 탈퇴하는 기능입니다.")
     @DeleteMapping("remove")
     public ResponseEntity<?> remove(@UserIdFromToken UserId userId) {
         log.info("userNo: {}", userId);
-        userService.removeUser(userId.getUserId());
-        return ResponseEntity
-                .ok()
-                .body("회원 탈퇴되었습니다.");
+        try{
+            userService.removeUser(userId.getUserId());
+            return ResponseEntity
+                    .ok()
+                    .body(UserResponseBody.removeSuccess());
+        }catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(UserResponseBody.removeError());
+        }
     }
 
     @Operation(summary = "로그인 api", description = "회원 로그인 기능입니다.")
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body("로그인 정보가 올바르지 않습니다.");
+                    .body(UserResponseBody.loginError());
         }
         try{
             return ResponseEntity
                     .ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + userService.login(loginDTO))
-                    .body("로그인 성공하였습니다");
+                    .body(UserResponseBody.loginSuccess());
         }catch (Exception e){
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body("로그인 정보가 올바르지 않습니다.");
+                    .body(UserResponseBody.loginError());
         }
     }
 }
