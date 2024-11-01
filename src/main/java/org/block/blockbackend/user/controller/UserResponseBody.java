@@ -40,5 +40,11 @@ public class UserResponseBody {
         response.put("message", "로그인 성공");
         return response;
     }
+    
+    public static Map<String, Object> avatarNotFoundError(){
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "아바타를 찾지 못했습니다");
+        return response;
+    }
 
 }

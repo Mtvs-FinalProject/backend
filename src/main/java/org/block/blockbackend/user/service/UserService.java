@@ -3,10 +3,13 @@ package org.block.blockbackend.user.service;
 import lombok.extern.slf4j.Slf4j;
 import org.block.blockbackend.user.dto.LoginDTO;
 import org.block.blockbackend.user.dto.SignUpDTO;
+import org.block.blockbackend.user.entity.Avatar;
 import org.block.blockbackend.user.entity.Role;
 import org.block.blockbackend.user.entity.User;
+import org.block.blockbackend.user.repository.AvatarRepository;
 import org.block.blockbackend.user.repository.UserRepository;
 import org.block.blockbackend.jwt.JwtTokenProvider;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +21,18 @@ import java.util.List;
 @Slf4j
 public class UserService {
 
-    public UserRepository userRepository;
+    private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final AvatarRepository avatarRepository;
 
-    public UserService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider, AvatarRepository avatarRepository) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.avatarRepository = avatarRepository;
     }
 
-    public User registerUser(SignUpDTO signUpDTO) {
+    @Transactional
+    public void registerUser(SignUpDTO signUpDTO) {
 
         User user = new User(
                 signUpDTO.getId(),
@@ -36,7 +42,9 @@ public class UserService {
                 Role.USER
         );
 
-        return userRepository.save(user);
+        userRepository.save(user);
+        Avatar avatar = new Avatar(user.getNo(), signUpDTO.getRgb());
+        avatarRepository.save(avatar);
     }
 
     public void removeUser(Long userNo) {
@@ -65,5 +73,9 @@ public class UserService {
 
     public List<User> getUser() {
         return userRepository.findAll();
+    }
+
+    public Avatar getAvatar(Long userId) {
+        return avatarRepository.findByUserId(userId);
     }
 }
