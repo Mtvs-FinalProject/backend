@@ -9,12 +9,15 @@ import org.block.blockbackend.core.config.UserIdFromToken;
 import org.block.blockbackend.user.dto.LoginDTO;
 import org.block.blockbackend.user.dto.SignUpDTO;
 import org.block.blockbackend.user.dto.UserId;
+import org.block.blockbackend.user.entity.User;
 import org.block.blockbackend.user.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -71,5 +74,11 @@ public class UserController {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(UserResponseBody.loginError());
         }
+    }
+
+    @Operation(summary = "회원 전체 조회 api", description = "개발용으로 회원의 전체 정보를 반환합니다")
+    @GetMapping
+    public ResponseEntity<List<User>>  getAllUserData() {
+        return ResponseEntity.ok().body(userService.getUser());
     }
 }
