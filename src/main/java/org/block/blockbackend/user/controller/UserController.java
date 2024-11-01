@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.block.blockbackend.core.config.UserIdFromToken;
+import org.block.blockbackend.user.dto.AvatarDTO;
 import org.block.blockbackend.user.dto.LoginDTO;
 import org.block.blockbackend.user.dto.SignUpDTO;
 import org.block.blockbackend.user.dto.UserId;
@@ -80,5 +81,17 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>>  getAllUserData() {
         return ResponseEntity.ok().body(userService.getUser());
+    }
+
+    @Operation(summary = "회원의 아바타 조회 api", description = "회원의 아바타 정보를 반환합니다")
+    @GetMapping("/avatar")
+    public ResponseEntity<?> getAvatar(@UserIdFromToken UserId userId) {
+        try{
+            return ResponseEntity.ok().body(new AvatarDTO(userService.getAvatar(userId.getUserId())));
+        }catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(UserResponseBody.avatarNotFoundError());
+        }
     }
 }
