@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -60,5 +61,9 @@ public class UserService {
         } catch (Exception e) {
             throw new IllegalArgumentException("로그인에 실패하였습니다.");
         }
+    }
+
+    public List<User> getUser() {
+        return userRepository.findAll();
     }
 }
