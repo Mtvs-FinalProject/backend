@@ -16,6 +16,13 @@ public class UploadDTO {
     @JsonProperty("data_table")
     private List<Map<String, Object>> dataTable;
     private int price;
+    @JsonProperty("map_name")
+    private String mapName;
+    private String summary;
+    private String description;
     private String editable;
     private Integer uploader;
+    private List<String> tags;
+    @JsonProperty("num_of_player")
+    private int numOfPlayer;
 }
