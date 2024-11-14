@@ -41,6 +41,8 @@ dependencies {
     // https://mvnrepository.com/artifact/io.minio/minio
     implementation 'io.minio:minio:8.5.10'
 
+    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+
     // swagger-ui
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
 
@@ -52,6 +54,9 @@ dependencies {
 
     // hibernate 6: @JdbcTypeCode 사용, @TypeDef 는 deprecated 되었음
     implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.2.0'
+
+    // s3 버킷
+    implementation 'software.amazon.awssdk:s3:2.29.10'
 
 }
 

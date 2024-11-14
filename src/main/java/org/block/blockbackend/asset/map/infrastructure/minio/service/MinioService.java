@@ -17,8 +17,11 @@ public class MinioService {
 
     private final MinioClient minioClient;
 
-    @Value("${spring.minio.bucket}")
-    private String defaultBucket;
+    @Value("${spring.minio.bucket.bloc}")
+    private String blocBucket;
+
+    @Value("${spring.minio.bucket.image}")
+    private String imageBucket;
 
     public MinioService(@Value("${spring.minio.endpoint}") String endpoint,
                         @Value("${spring.minio.access-key}") String accessKey,
@@ -45,15 +48,15 @@ public class MinioService {
 //        saveFile(fileName, file); // 파일 저장하는 로직
 
         // 버킷이 존재하는지 확인
-        boolean isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(defaultBucket).build());
+        boolean isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(blocBucket).build());
         if (!isExist) {
             // 버킷이 존재하지 않으면 생성
-            minioClient.makeBucket(MakeBucketArgs.builder().bucket(defaultBucket).build());
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(blocBucket).build());
         }
 
         minioClient.putObject(
                 PutObjectArgs.builder()
-                        .bucket(defaultBucket)
+                        .bucket(blocBucket)
                         .object(fileName)
                         .stream(inputStream, file.getSize(), -1)
                         // -1: stream 이 끝날때까지 업로드
@@ -71,7 +74,7 @@ public class MinioService {
         log.info("File downloaded: {}", fileName);
         return minioClient.getObject(
                 GetObjectArgs.builder()
-                        .bucket(defaultBucket)
+                        .bucket(blocBucket)
                         .object(fileName)
                         .build()
         );

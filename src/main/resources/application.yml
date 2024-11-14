@@ -7,10 +7,13 @@ spring:
   config:
     import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:postgresql://localhost:5432/blocdb
-    username: root
-    password: 1234
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  #    url: jdbc:postgresql://localhost:5432/blocdb
+#    username: root
+#    password: 1234
   jpa:
     hibernate:
       ddl-auto: update # 개발 중에는 'update', 운영 환경에서는 'none' 또는 'validate'로 설정
@@ -26,8 +29,9 @@ spring:
     endpoint: http://localhost:9005
     access-key: adminuser
     secret-key: strongpassword
-    bucket: bloc # 사용하려는 버킷 이름
-
+    bucket:
+      bloc: bloc # 사용하려는 버킷 이름
+      image: image
 
 logging:
   level:
@@ -35,7 +39,15 @@ logging:
       springframework:
         web: DEBUG # 로그 레벨 설정, 필요에 따라 변경 가능
 
-
 jwt:
   expiration_time: 86400000 #1일
   secret: ${SECRET_KEY}
+
+cloud:
+  aws:
+    region: ap-northeast-2 # 사용 중인 AWS 리전
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    s3:
+      bucket: cubic-bucket
