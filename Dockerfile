@@ -1,5 +1,5 @@
 # Start with a base image with JDK
-FROM openjdk:17-jdk
+FROM eclipse-temurin:17
 
 # Set the working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY /build/libs/cubic-server.jar app.jar
 
 # Expose the port (8080을 Spring Boot 애플리케이션의 기본 포트로 설정)
-EXPOSE 80
+EXPOSE 8085
 
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]

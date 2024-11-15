@@ -1,5 +1,6 @@
 HELP.md
 ../../../.gradle
+.gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
@@ -45,3 +46,4 @@ src/main/resources/.env.sample
 .tar
 *.tar
 .env.sample.gradle/
+.gradle/
