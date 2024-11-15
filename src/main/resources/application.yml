@@ -5,7 +5,7 @@ spring:
   application:
     name: block-backend
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE}
   config:
     import: optional:file:.env[.properties]
   jpa:
