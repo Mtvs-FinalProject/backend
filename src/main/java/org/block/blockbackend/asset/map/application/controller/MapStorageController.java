@@ -8,6 +8,7 @@ import org.block.blockbackend.asset.map.application.dto.DownloadFileDTO;
 import org.block.blockbackend.asset.map.application.dto.UploadDTO;
 import org.block.blockbackend.asset.map.application.service.MapApiService;
 import org.block.blockbackend.core.error.ApplicationException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -21,6 +22,7 @@ import java.util.List;
 @Tag(name = "MAP API", description = "맵 데이터와 이미지등 정보를 업로드 & 다운로드")
 @RestController
 @RequestMapping("/api/v1/map")
+@Profile("prod")
 public class MapStorageController {
 
     MapApiService mapApiService;
