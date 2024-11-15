@@ -7,7 +7,6 @@ import org.block.blockbackend.asset.map.application.dto.UploadDTO;
 import org.block.blockbackend.asset.map.domain.model.Editable;
 import org.block.blockbackend.asset.map.domain.model.MapInfo;
 import org.block.blockbackend.asset.map.domain.service.MapStorageService;
-import org.block.blockbackend.asset.map.infrastructure.minio.service.MinioService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.block.blockbackend.asset.map.infrastructure.minio.service.S3Service;
