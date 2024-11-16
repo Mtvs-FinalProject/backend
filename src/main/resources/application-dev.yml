@@ -1,0 +1,40 @@
+spring:
+  datasource:
+#    url: jdbc:postgresql://postgresql-container:5432/blocdb # server container 사용시 해제
+    url: jdbc:postgresql://localhost:5432/blocdb
+    username: root
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        highlight: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG # 로그 레벨 설정, 필요에 따라 변경 가능
+
+jwt:
+  expiration_time: 604800000 #1주일
+  secret: cubic_json_web_token_secret_key_value
+
+
+cloud:
+  aws:
+    region: regin # 사용 중인 AWS 리전
+    credentials:
+      access-key: root
+      secret-key: 12341234
+    s3:
+#      endpoint: http://minio-container:9005 # server container 사용시 해제
+      endpoint: http://localhost:9005
+      bucket: my-bucket # 사용하려는 버킷 이름

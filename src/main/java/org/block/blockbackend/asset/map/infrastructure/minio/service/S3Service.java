@@ -1,6 +1,7 @@
-package org.block.blockbackend.asset.map.infrastructure.s3.service;
+package org.block.blockbackend.asset.map.infrastructure.minio.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.block.blockbackend.core.utils.ApplicationProfileCheck;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URI;
 import java.util.UUID;
 
 @Service
@@ -25,15 +27,30 @@ public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
+    @Value("${cloud.aws.s3.endpoint}")
+    private String endpoint;
+
+
     public S3Service(@Value("${cloud.aws.region}") String region,
                      @Value("${cloud.aws.credentials.access-key}") String accessKey,
                      @Value("${cloud.aws.credentials.secret-key}") String secretKey) {
-        this.s3Client = S3Client.builder()
-                .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(accessKey, secretKey)
-                ))
-                .build();
+        if (ApplicationProfileCheck.isProd()) {
+            // MinIO 클라이언트 생성
+            this.s3Client =  S3Client.builder()
+                    .credentialsProvider(StaticCredentialsProvider.create(
+                            AwsBasicCredentials.create(accessKey, secretKey)))
+                    .region(Region.of(region)) // MinIO는 임의의 리전
+                    .endpointOverride(URI.create(endpoint)) // MinIO 엔드포인트
+                    .build();
+        } else {
+            // AWS S3 클라이언트 생성
+            this.s3Client = S3Client.builder()
+                    .region(Region.of(region))
+                    .credentialsProvider(StaticCredentialsProvider.create(
+                            AwsBasicCredentials.create(accessKey, secretKey)
+                    ))
+                    .build();
+        }
     }
 
     public String uploadFile(MultipartFile image) throws Exception {
@@ -60,7 +77,7 @@ public class S3Service {
         log.info("File uploaded successfully: {}", fileName);
 
         // S3 URL 추출
-        result = "https://" + bucketName + ".s3.amazonaws.com/" + fileName;
+        result = endpoint + "/" + fileName;
 
         return result;
     }

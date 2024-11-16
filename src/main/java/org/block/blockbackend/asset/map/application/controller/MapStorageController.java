@@ -8,6 +8,7 @@ import org.block.blockbackend.asset.map.application.dto.DownloadFileDTO;
 import org.block.blockbackend.asset.map.application.dto.UploadDTO;
 import org.block.blockbackend.asset.map.application.service.MapApiService;
 import org.block.blockbackend.core.error.ApplicationException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
