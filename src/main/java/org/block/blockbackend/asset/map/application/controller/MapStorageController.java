@@ -22,7 +22,6 @@ import java.util.List;
 @Tag(name = "MAP API", description = "맵 데이터와 이미지등 정보를 업로드 & 다운로드")
 @RestController
 @RequestMapping("/api/v1/map")
-@Profile("prod")
 public class MapStorageController {
 
     MapApiService mapApiService;
