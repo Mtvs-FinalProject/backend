@@ -2,13 +2,13 @@
 FROM eclipse-temurin:17
 
 # Set the working directory
-WORKDIR /app
+WORKDIR app/
 
-# Copy the JAR file to the container
-COPY /build/libs/cubic-server.jar app.jar
+# Copy the JAR file from host to container (optional, use volumes for dynamic updates)
+COPY build/libs/cubic-server.jar app.jar
 
-# Expose the port (8080을 Spring Boot 애플리케이션의 기본 포트로 설정)
+# Expose the port (Spring Boot Application Default Port)
 EXPOSE 8085
 
-# Run the JAR file
+# Set the default command to execute the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
