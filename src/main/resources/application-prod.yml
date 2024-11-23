@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # 개발 중에는 'update', 운영 환경에서는 'none' 또는 'validate'로 설정
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG # 로그 레벨 설정, 필요에 따라 변경 가능
+
+jwt:
+  expiration_time: ${JWT_TIME}
+  secret: ${SECRET_KEY}
+
+cloud:
+  aws:
+    region: ${AWS_REGION} # 사용 중인 AWS 리전
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    s3:
+      endpoint: https://${BUCKET_NAME}.s3.amazonaws.com
+      bucket: ${BUCKET_NAME}
