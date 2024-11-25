@@ -19,9 +19,8 @@ public class UploadDTO {
     @JsonProperty("map_name")
     private String mapName;
     private String summary;
-    private String description;
+    private String content;
     private String editable;
-    private Integer uploader;
     private List<String> tags;
     @JsonProperty("num_of_player")
     private int numOfPlayer;

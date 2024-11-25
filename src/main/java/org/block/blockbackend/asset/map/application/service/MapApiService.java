@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.block.blockbackend.asset.map.infrastructure.minio.service.S3Service;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -36,7 +34,7 @@ public class MapApiService {
         this.s3Service = s3Service;
     }
 
-    public void uploadMapFile(List<MultipartFile> images, UploadDTO uploadDTO) throws Exception {
+    public void uploadMapFile(Long userId,List<MultipartFile> images, UploadDTO uploadDTO) throws Exception {
 
         // Map<String, Object> json, int price, Editable editable, Integer uploader
 
@@ -61,10 +59,10 @@ public class MapApiService {
                 uploadDTO.getMapName(),
                 imagesURL,
                 uploadDTO.getSummary(),
-                uploadDTO.getDescription(),
+                uploadDTO.getContent(),
                 uploadDTO.getTags(),
                 editable,
-                uploadDTO.getUploader(),
+                userId,
                 uploadDTO.getNumOfPlayer()
         );
     }
@@ -114,13 +112,14 @@ public class MapApiService {
                 mapInfo.getMapName(),
                 mapInfo.getImagesURL(),
                 mapInfo.getSummary(),
-                mapInfo.getDescription(),
+                mapInfo.getContent(),
                 mapInfo.getTags(),
                 mapInfo.getPlayer()
         );
 
         return result;
     }
+
 //
 //    public InputStream downloadMapFile(String fileName) throws Exception {
 //

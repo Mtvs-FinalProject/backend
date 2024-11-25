@@ -9,6 +9,7 @@ import org.block.blockbackend.core.error.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Pageable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,11 @@ public class MapStorageService {
         this.mapStorageRepository = mapStorageRepository;
     }
 
+//    public Pageable<MapInfo>
+
     @Transactional
-    public void storeMapStorage(List<Map<String, Object>> json, Integer price, String mapName, List<String> imagesURL, String summary, String description, List<String> tags, Editable editable, Integer uploader, int player) {
-        MapInfo mapInfo = new MapInfo(json, price, mapName, imagesURL, summary, description, tags, editable, uploader, player, new Timestamp(System.currentTimeMillis()));
+    public void storeMapStorage(List<Map<String, Object>> json, Integer price, String mapName, List<String> imagesURL, String summary, String content, List<String> tags, Editable editable, Long uploader, int player) {
+        MapInfo mapInfo = new MapInfo(json, price, mapName, imagesURL, summary, content, tags, editable, uploader, player, new Timestamp(System.currentTimeMillis()));
 
         mapStorageRepository.save(mapInfo);
         log.info("mapInfo: {}", mapInfo);
