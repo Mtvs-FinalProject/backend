@@ -7,7 +7,9 @@ import org.block.blockbackend.asset.map.application.dto.DetailDTO;
 import org.block.blockbackend.asset.map.application.dto.DownloadFileDTO;
 import org.block.blockbackend.asset.map.application.dto.UploadDTO;
 import org.block.blockbackend.asset.map.application.service.MapApiService;
+import org.block.blockbackend.core.config.UserIdFromToken;
 import org.block.blockbackend.core.error.ApplicationException;
+import org.block.blockbackend.user.dto.UserId;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
@@ -24,22 +26,30 @@ import java.util.List;
 @RequestMapping("/api/v1/map")
 public class MapStorageController {
 
-    MapApiService mapApiService;
+    private final MapApiService mapApiService;
 
     public MapStorageController(MapApiService mapApiService) {
         this.mapApiService = mapApiService;
     }
 
+//    @Operation(summary = "맵 리스트 API", description = "등록된 맵리스트를 반환하는 API")
+//    @GetMapping("/maps")
+//    public ResponseEntity<?> maps(@RequestParam Integer no) throws Exception {
+//
+//    }
+
+
     @Operation(summary = "파일 업로드 api", description = "파일을 업로드 하는 api")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity uploadMap(
+            @UserIdFromToken UserId userId,
             @RequestPart("file") List<MultipartFile> images,
             @RequestPart("data") UploadDTO uploadDTO
             ) {
 
         try {
             log.info("upload map...");
-            mapApiService.uploadMapFile(images, uploadDTO);
+            mapApiService.uploadMapFile(userId.getUserId(), images, uploadDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -80,6 +90,7 @@ public class MapStorageController {
 
         return ResponseEntity.ok().body(result);
     }
+
 
     /* 여기 부터는 헤더 설정 */
 

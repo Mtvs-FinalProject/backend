@@ -1,18 +1,14 @@
 package org.block.blockbackend.asset.map.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +16,7 @@ import java.util.Map;
 @Table(name = "map_info")
 @Getter
 @NoArgsConstructor
+@ToString
 public class MapInfo {
 
     @Id
@@ -48,8 +45,8 @@ public class MapInfo {
     @Column(name="summary")
     private String summary;
 
-    @Column(name="description")
-    private String description;
+    @Column(name="content")
+    private String content;
 
     @JdbcTypeCode(SqlTypes.ARRAY)   // 기본 자료형 외에도 db에 저장할 수 있게 해준다.
     @Column(name="tags", columnDefinition = "text[]")   // 문자열 배열 저장
@@ -61,7 +58,7 @@ public class MapInfo {
     private Editable editable;
 
     @Column(name="uploader")
-    private Integer uploader;
+    private Long uploader;
 
     @Column(name="player")
     private int player;
@@ -69,13 +66,13 @@ public class MapInfo {
     @Column(name="create_at")
     private Timestamp createAt;
 
-    public MapInfo(List<Map<String, Object>> dataTable, int price, String mapName, List<String> imagesURL, String summary, String description, List<String> tags, Editable editable, Integer uploader, int player, Timestamp createAt) {
+    public MapInfo(List<Map<String, Object>> dataTable, int price, String mapName, List<String> imagesURL, String summary, String description, List<String> tags, Editable editable, Long uploader, int player, Timestamp createAt) {
         this.dataTable = dataTable;
         this.price = price;
         this.mapName = mapName;
         this.imagesURL = imagesURL;
         this.summary = summary;
-        this.description = description;
+        this.content = description;
         this.tags = tags;
         this.editable = editable;
         this.uploader = uploader;

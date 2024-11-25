@@ -16,6 +16,12 @@ public class UserResponseBody {
         response.put("message", "가입 정보가 올바르지 않습니다.");
         return response;
     }
+    
+   public static Map<String, Object> signupErrorUniqueId(){
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "이미 등록된 id입니다");
+        return response;
+    }
 
     public static Map<String, Object> removeSuccess(){
         Map<String, Object> response = new HashMap<>();
@@ -32,6 +38,12 @@ public class UserResponseBody {
     public static Map<String, Object> loginError(){
         Map<String, Object> response = new HashMap<>();
         response.put("message", "로그인 정보가 올바르지 않습니다.");
+        return response;
+    }
+
+    public static Map<String, Object> loginErrorDTO(){
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "아이피 또는 패스워드가 입력되지 않았습니다.");
         return response;
     }
 
