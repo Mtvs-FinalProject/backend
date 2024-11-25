@@ -12,32 +12,37 @@ import org.springframework.web.multipart.MultipartFile;
 import org.block.blockbackend.asset.map.infrastructure.minio.service.S3Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
 public class MapApiService {
 
     private final MapStorageService mapStorageService;
-
-//    private final MinioService minioService;
     private final S3Service s3Service;
-
-    // Minio
-//    public MapApiService(MapStorageService mapStoragteService, MinioService minioService) {
-//        this.mapStorageService = mapStoragteService;
-//        this.minioService = minioService;
-//    }
 
     public MapApiService(MapStorageService mapStoragteService, S3Service s3Service) {
         this.mapStorageService = mapStoragteService;
         this.s3Service = s3Service;
     }
 
+    public List<Map<String, Object>> getMapList() {
+
+        List<MapInfo> maps = mapStorageService.getMapStorageList();
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (MapInfo map : maps) {
+            Map<String, Object> mapInfo = new HashMap<>();
+            mapInfo.put("no", map.getNo());
+            mapInfo.put("mapName", map.getMapName());
+            mapInfo.put("price", map.getPrice());
+            mapList.add(mapInfo);
+        }
+        return mapList;
+    }
+
     public void uploadMapFile(Long userId,List<MultipartFile> images, UploadDTO uploadDTO) throws Exception {
-
-        // Map<String, Object> json, int price, Editable editable, Integer uploader
-
         Editable editable;
         List<String> imagesURL = new ArrayList<>();
 

@@ -30,6 +30,7 @@ public class MapStorageService {
     public void storeMapStorage(List<Map<String, Object>> json, Integer price, String mapName, List<String> imagesURL, String summary, String content, List<String> tags, Editable editable, Long uploader, int player) {
         MapInfo mapInfo = new MapInfo(json, price, mapName, imagesURL, summary, content, tags, editable, uploader, player, new Timestamp(System.currentTimeMillis()));
 
+        log.info("mapInfo: {}", mapInfo);
         mapStorageRepository.save(mapInfo);
         log.info("mapInfo: {}", mapInfo);
     }
@@ -61,5 +62,9 @@ public class MapStorageService {
 
     public MapInfo getAllMapStorage() {
         return mapStorageRepository.findAll().stream().findFirst().get();
+    }
+
+    public List<MapInfo> getMapStorageList() {
+        return mapStorageRepository.findAll();
     }
 }

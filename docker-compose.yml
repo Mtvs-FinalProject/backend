@@ -10,6 +10,7 @@ services:
     command: ["java", "-jar", "cubic-server.jar"]
     ports:
       - "8085:8085"
+    profiles: ["prod"]
 
   minio:
     image: minio/minio
@@ -21,7 +22,8 @@ services:
       - ./minio-data:/data
     ports:
       - "9005:9000"
-    command: server /data
+      - "9010:9001"
+    command: server /data --console-address ":9001"
     profiles: ["dev"]
 
 
@@ -38,19 +40,19 @@ services:
       - "5432:5432" # PostgreSQL은 기본적으로 5432 포트를 사용
     profiles: ["dev"]
 
-  prometheus:
-    image: prom/prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    profiles: ["dep", "dev"]
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3333:3000"
-    depends_on:
-      - prometheus
-    volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
+#  prometheus:
+#    image: prom/prometheus
+#    ports:
+#      - "9090:9090"
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    profiles: ["dep", "dev"]
+#
+#  grafana:
+#    image: grafana/grafana
+#    ports:
+#      - "3333:3000"
+#    depends_on:
+#      - prometheus
+#    volumes:
+#      - ./grafana/provisioning:/etc/grafana/provisioning

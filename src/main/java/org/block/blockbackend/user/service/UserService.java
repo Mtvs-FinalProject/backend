@@ -41,8 +41,9 @@ public class UserService {
                 BigDecimal.valueOf(3000),
                 Role.USER
         );
-
+        log.info("user: {}", user);
         userRepository.save(user);
+
         Avatar avatar = new Avatar(user.getNo(), signUpDTO.getRgb());
         avatarRepository.save(avatar);
     }

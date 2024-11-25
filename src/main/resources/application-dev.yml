@@ -37,4 +37,4 @@ cloud:
     s3:
 #      endpoint: http://minio-container:9005 # server container 사용시 해제
       endpoint: http://localhost:9005
-      bucket: my-bucket # 사용하려는 버킷 이름
+      bucket: bloc # 사용하려는 버킷 이름

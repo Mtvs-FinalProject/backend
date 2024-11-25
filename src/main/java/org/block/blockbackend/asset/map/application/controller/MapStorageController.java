@@ -1,6 +1,11 @@
 package org.block.blockbackend.asset.map.application.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.block.blockbackend.asset.map.application.dto.DetailDTO;
@@ -18,7 +23,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Tag(name = "MAP API", description = "맵 데이터와 이미지등 정보를 업로드 & 다운로드")
@@ -32,11 +39,29 @@ public class MapStorageController {
         this.mapApiService = mapApiService;
     }
 
-//    @Operation(summary = "맵 리스트 API", description = "등록된 맵리스트를 반환하는 API")
-//    @GetMapping("/maps")
-//    public ResponseEntity<?> maps(@RequestParam Integer no) throws Exception {
-//
-//    }
+   @Operation(summary = "맵 리스트 API", description = "등록된 맵리스트를 반환하는 API")
+   @ApiResponse(responseCode = "200", description = "성공적으로 반환된 지도 목록",
+           content = @Content(mediaType = "application/json",
+                   examples = @ExampleObject(value = """
+                            [
+                              {
+                                "mapName": "Seoul Map",
+                                "price": 1000
+                              },
+                              {
+                                "mapName": "Busan Map",
+                                "price": 1500
+                              }
+                            ]
+                            """)))
+   @GetMapping("/maps")
+   public ResponseEntity<?> maps() throws Exception {
+         List<Map<String, Object>> result;
+
+         result = mapApiService.getMapList();
+
+         return ResponseEntity.ok().body(result);
+   }
 
 
     @Operation(summary = "파일 업로드 api", description = "파일을 업로드 하는 api")
@@ -57,29 +82,29 @@ public class MapStorageController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary="파일 다운로드 api", description="파일명으로 파일을 다운로드")
-    @GetMapping(value="/download")
-    public ResponseEntity downloadMap(@RequestParam Integer no) {
-
-        DownloadFileDTO response;
-//        InputStreamResource fileStream;
-        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-
-        try {
-            log.info("download Map...");
-            response = mapApiService.purchaseMap(no);
-//            fileStream = new InputStreamResource(mapApiService.downloadMapFile(response.getFileName()));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-
-        body.add("json", new HttpEntity<>(response, createJsonHeaders()));
-//        body.add("file", new HttpEntity<>(fileStream, createFileHeaders(response.getFileName())));
-
-        return ResponseEntity.ok()
-//                .contentType(MediaType.MULTIPART_MIXED)
-                .body(body);
-    }
+//     @Operation(summary="파일 다운로드 api", description="파일명으로 파일을 다운로드")
+//     @GetMapping(value="/download")
+//     public ResponseEntity downloadMap(@RequestParam Integer no) {
+//
+//         DownloadFileDTO response;
+// //        InputStreamResource fileStream;
+//         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+//
+//         try {
+//             log.info("download Map...");
+//             response = mapApiService.purchaseMap(no);
+// //            fileStream = new InputStreamResource(mapApiService.downloadMapFile(response.getFileName()));
+//         } catch (Exception e) {
+//             return ResponseEntity.badRequest().body(e.getMessage());
+//         }
+//
+//         body.add("json", new HttpEntity<>(response, createJsonHeaders()));
+// //        body.add("file", new HttpEntity<>(fileStream, createFileHeaders(response.getFileName())));
+//
+//         return ResponseEntity.ok()
+// //                .contentType(MediaType.MULTIPART_MIXED)
+//                 .body(body);
+//     }
 
     @Operation(summary = "맵 설명 API", description = "맵의 상세 정보를 조회하는 API")
     @GetMapping("/description")

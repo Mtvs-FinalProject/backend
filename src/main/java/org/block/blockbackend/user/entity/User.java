@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name="users")
 @NoArgsConstructor
 @Getter
+@ToString
 public class User {
 
     @Id
