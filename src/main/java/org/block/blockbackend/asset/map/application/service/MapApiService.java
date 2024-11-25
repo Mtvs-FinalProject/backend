@@ -37,6 +37,7 @@ public class MapApiService {
             mapInfo.put("no", map.getNo());
             mapInfo.put("mapName", map.getMapName());
             mapInfo.put("price", map.getPrice());
+            mapInfo.put("summary", map.getSummary());
             mapList.add(mapInfo);
         }
         return mapList;
@@ -119,9 +120,8 @@ public class MapApiService {
                 mapInfo.getSummary(),
                 mapInfo.getContent(),
                 mapInfo.getTags(),
-                mapInfo.getPlayer()
-        );
-
+                mapInfo.getPlayer(),
+                mapInfo.getCreateAt());
         return result;
     }
 

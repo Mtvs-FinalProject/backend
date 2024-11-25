@@ -35,6 +35,7 @@ public class S3Service {
                      @Value("${cloud.aws.s3.bucket}") String bucketName
                      ) {
         this.endpoint = endpoint;
+        log.info("endpoint: {}", endpoint);
         this.bucketName = bucketName;
         if (!"prod".equals(profile)) {
             this.s3Client = S3Client.builder()

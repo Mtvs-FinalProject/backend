@@ -48,11 +48,13 @@ public class MapStorageController {
                                 "no": 1,
                                 "mapName": "Seoul Map",
                                 "price": 1000
+                                "summary": "서울 지도"
                               },
                               {
                                 "no": 2,
                                 "mapName": "Busan Map",
                                 "price": 1500
+                                "summary": "부산 지도"
                               }
                             ]
                             """)))
@@ -83,30 +85,6 @@ public class MapStorageController {
 
         return ResponseEntity.ok().build();
     }
-
-//     @Operation(summary="파일 다운로드 api", description="파일명으로 파일을 다운로드")
-//     @GetMapping(value="/download")
-//     public ResponseEntity downloadMap(@RequestParam Integer no) {
-//
-//         DownloadFileDTO response;
-// //        InputStreamResource fileStream;
-//         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-//
-//         try {
-//             log.info("download Map...");
-//             response = mapApiService.purchaseMap(no);
-// //            fileStream = new InputStreamResource(mapApiService.downloadMapFile(response.getFileName()));
-//         } catch (Exception e) {
-//             return ResponseEntity.badRequest().body(e.getMessage());
-//         }
-//
-//         body.add("json", new HttpEntity<>(response, createJsonHeaders()));
-// //        body.add("file", new HttpEntity<>(fileStream, createFileHeaders(response.getFileName())));
-//
-//         return ResponseEntity.ok()
-// //                .contentType(MediaType.MULTIPART_MIXED)
-//                 .body(body);
-//     }
 
     @Operation(summary = "맵 설명 API", description = "맵의 상세 정보를 조회하는 API")
     @GetMapping("/description")

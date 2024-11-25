@@ -3,6 +3,7 @@ package org.block.blockbackend.asset.map.application.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -30,4 +31,5 @@ public class DetailDTO {
 
     private int player;
 
+    private Timestamp createAt;
 }
