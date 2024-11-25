@@ -2,6 +2,7 @@ package org.block.blockbackend.asset.map.application.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.block.blockbackend.asset.map.application.dto.DownloadFileDTO;
 import org.block.blockbackend.asset.map.application.dto.UploadDTO;
 import org.block.blockbackend.asset.map.application.service.MapApiService;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Tag(name = "MAP API", description = "맵 파일, 정보를 업로드 & 다운로드")
 @RestController
 @RequestMapping("/api/v1/map")
+@Slf4j
 public class MapStorageController {
 
     MapApiService mapApiService;
@@ -51,6 +53,7 @@ public class MapStorageController {
         try {
             json = mapApiService.purchaseMap(no);
             fileStream = new InputStreamResource(mapApiService.downloadMapFile(json.getFileName()));
+            log.info("umap download: {}", no);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

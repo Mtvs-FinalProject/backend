@@ -3,6 +3,7 @@ package org.block.blockbackend.asset.map.domain.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -17,6 +18,7 @@ import java.util.Map;
 @Table(name = "map_info")
 @Getter
 @NoArgsConstructor
+@ToString
 public class MapInfo {
 
     @Id

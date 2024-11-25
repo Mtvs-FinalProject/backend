@@ -37,7 +37,11 @@ public class UserController {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(UserResponseBody.signupError());
         }
-        userService.registerUser(signUpDTO);
+        try{
+            userService.registerUser(signUpDTO);
+        }catch (Exception e){
+            return new ResponseEntity<>(UserResponseBody.signupErrorUniqueId(), HttpStatus.BAD_REQUEST);
+        }
         return ResponseEntity.ok().body(UserResponseBody.signupSuccess());
     }
 
@@ -63,7 +67,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(UserResponseBody.loginError());
+                    .body(UserResponseBody.loginErrorDTO());
         }
         try{
             return ResponseEntity

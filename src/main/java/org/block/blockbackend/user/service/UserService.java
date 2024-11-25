@@ -53,7 +53,10 @@ public class UserService {
 
     @Transactional
     public String login(LoginDTO loginDTO) {
+        log.info("loginDTO: {} " , loginDTO);
         User user = userRepository.findById(loginDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
+        log.info("user: {} " , user);
+
 
         if (!user.getPasswd().equals(loginDTO.getPasswd())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
