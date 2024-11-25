@@ -45,10 +45,12 @@ public class MapStorageController {
                    examples = @ExampleObject(value = """
                             [
                               {
+                                "no": 1,
                                 "mapName": "Seoul Map",
                                 "price": 1000
                               },
                               {
+                                "no": 2,
                                 "mapName": "Busan Map",
                                 "price": 1500
                               }
