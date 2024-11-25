@@ -68,7 +68,7 @@ public class MapStorageController {
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity uploadMap(
             @UserIdFromToken UserId userId,
-            @RequestPart("file") List<MultipartFile> images,
+            @RequestPart("images") List<MultipartFile> images,
             @RequestPart("data") UploadDTO uploadDTO
             ) {
 
