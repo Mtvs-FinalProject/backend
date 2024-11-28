@@ -35,7 +35,7 @@ public class MapInfo {
     @Column(name="price", nullable = false)
     private int price;
 
-    @Column(name="map_name")
+    @Column(name="map_name", unique = true, nullable = false)
     private String mapName;
 
     @JdbcTypeCode(SqlTypes.ARRAY)   // 기본 자료형 외에도 db에 저장할 수 있게 해준다.

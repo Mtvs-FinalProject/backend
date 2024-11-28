@@ -12,6 +12,7 @@ import org.block.blockbackend.asset.map.application.dto.DetailDTO;
 import org.block.blockbackend.asset.map.application.dto.DownloadFileDTO;
 import org.block.blockbackend.asset.map.application.dto.UploadDTO;
 import org.block.blockbackend.asset.map.application.service.MapApiService;
+import org.block.blockbackend.asset.map.domain.model.MapInfo;
 import org.block.blockbackend.core.config.UserIdFromToken;
 import org.block.blockbackend.core.error.ApplicationException;
 import org.block.blockbackend.user.dto.UserId;
@@ -70,7 +71,7 @@ public class MapStorageController {
 
     @Operation(summary = "파일 업로드 api", description = "파일을 업로드 하는 api")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity uploadMap(
+    public ResponseEntity<?> uploadMap(
             @UserIdFromToken UserId userId,
             @RequestPart("images") List<MultipartFile> images,
             @RequestPart("data") UploadDTO uploadDTO
@@ -78,12 +79,10 @@ public class MapStorageController {
 
         try {
             log.info("upload map...");
-            mapApiService.uploadMapFile(userId.getUserId(), images, uploadDTO);
+            return ResponseEntity.ok().body(mapApiService.uploadMapFile(userId.getUserId(), images, uploadDTO));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "맵 설명 API", description = "맵의 상세 정보를 조회하는 API")
@@ -94,6 +93,18 @@ public class MapStorageController {
         result = mapApiService.description(no);
 
         return ResponseEntity.ok().body(result);
+    }
+
+    @Operation(summary = "맵 데이터를 반환합니다", description = "맵 번호를 입력받아 데이터를 반환합니다")
+    @GetMapping("/map-info")
+    public ResponseEntity<?> mapInfo(@RequestParam Integer no) {
+        return ResponseEntity.ok().body(mapApiService.findMapInfoByNo(no));
+    }
+
+    @Operation(summary = "맵 데이터를 반환합니다", description = "맵 번호를 입력받아 데이터를 반환합니다")
+    @GetMapping("/map-info/name/{name}")
+    public ResponseEntity<?> mapInfo(@PathVariable String name) {
+        return ResponseEntity.ok().body(mapApiService.findMapInfoByMapName(name));
     }
 
 

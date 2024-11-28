@@ -26,13 +26,18 @@ public class MapStorageService {
 
 //    public Pageable<MapInfo>
 
+    public MapInfo findMapInfoByNo(Integer no) {
+        return mapStorageRepository.findById(no).orElseThrow(() -> new IllegalArgumentException("찾는 맵 데이터가 없습니다"));
+    }
+
     @Transactional
-    public void storeMapStorage(List<Map<String, Object>> json, Integer price, String mapName, List<String> imagesURL, String summary, String content, List<String> tags, Editable editable, Long uploader, int player) {
+    public MapInfo storeMapStorage(List<Map<String, Object>> json, Integer price, String mapName, List<String> imagesURL, String summary, String content, List<String> tags, Editable editable, Long uploader, int player) {
         MapInfo mapInfo = new MapInfo(json, price, mapName, imagesURL, summary, content, tags, editable, uploader, player, new Timestamp(System.currentTimeMillis()));
 
         log.info("mapInfo: {}", mapInfo);
         mapStorageRepository.save(mapInfo);
         log.info("mapInfo: {}", mapInfo);
+        return  mapInfo;
     }
 
     // umap 저장 하는 service
@@ -66,5 +71,9 @@ public class MapStorageService {
 
     public List<MapInfo> getMapStorageList() {
         return mapStorageRepository.findAll();
+    }
+
+    public MapInfo findMapInfoByMapName(String name) {
+        return mapStorageRepository.findMapInfoByMapName(name);
     }
 }

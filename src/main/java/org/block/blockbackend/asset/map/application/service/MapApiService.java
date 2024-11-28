@@ -28,6 +28,10 @@ public class MapApiService {
         this.s3Service = s3Service;
     }
 
+    public MapInfo findMapInfoByNo(Integer no){
+        return mapStorageService.findMapInfoByNo(no);
+    }
+
     public List<Map<String, Object>> getMapList() {
 
         List<MapInfo> maps = mapStorageService.getMapStorageList();
@@ -43,7 +47,7 @@ public class MapApiService {
         return mapList;
     }
 
-    public void uploadMapFile(Long userId,List<MultipartFile> images, UploadDTO uploadDTO) throws Exception {
+    public MapInfo uploadMapFile(Long userId,List<MultipartFile> images, UploadDTO uploadDTO) throws Exception {
         Editable editable;
         List<String> imagesURL = new ArrayList<>();
 
@@ -59,7 +63,7 @@ public class MapApiService {
 
         log.info("============Upload imagesURL============\n" + imagesURL);
 
-        mapStorageService.storeMapStorage(
+        return mapStorageService.storeMapStorage(
                 uploadDTO.getDataTable(),
                 uploadDTO.getPrice(),
                 uploadDTO.getMapName(),
@@ -123,6 +127,10 @@ public class MapApiService {
                 mapInfo.getPlayer(),
                 mapInfo.getCreateAt());
         return result;
+    }
+
+    public MapInfo findMapInfoByMapName(String name) {
+        return mapStorageService.findMapInfoByMapName(name);
     }
 
 //
