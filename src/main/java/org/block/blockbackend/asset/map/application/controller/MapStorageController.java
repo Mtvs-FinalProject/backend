@@ -51,13 +51,13 @@ public class MapStorageController {
                               {
                                 "no": 1,
                                 "mapName": "Seoul Map",
-                                "price": 1000
+                                "price": 1000,
                                 "summary": "서울 지도"
                               },
                               {
                                 "no": 2,
                                 "mapName": "Busan Map",
-                                "price": 1500
+                                "price": 1500,
                                 "summary": "부산 지도"
                               }
                             ]
