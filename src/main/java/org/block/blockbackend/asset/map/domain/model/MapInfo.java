@@ -29,7 +29,7 @@ public class MapInfo {
 
     @JdbcTypeCode(SqlTypes.JSON)    // after hibernate 6
     @Column(name="data_table", columnDefinition = "jsonb")
-    private List<Map<String, Object>> dataTable;
+    private Map<String, Object> dataTable;
 
     @ColumnDefault("0")
     @Column(name="price", nullable = false)
@@ -66,7 +66,7 @@ public class MapInfo {
     @Column(name="create_at")
     private Timestamp createAt;
 
-    public MapInfo(List<Map<String, Object>> dataTable, int price, String mapName, List<String> imagesURL, String summary, String description, List<String> tags, Editable editable, Long uploader, int player, Timestamp createAt) {
+    public MapInfo(Map<String, Object> dataTable, int price, String mapName, List<String> imagesURL, String summary, String description, List<String> tags, Editable editable, Long uploader, int player, Timestamp createAt) {
         this.dataTable = dataTable;
         this.price = price;
         this.mapName = mapName;

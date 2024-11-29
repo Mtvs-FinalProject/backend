@@ -1,5 +1,6 @@
 package org.block.blockbackend.asset.map.application.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,9 +36,11 @@ import java.util.Map;
 public class MapStorageController {
 
     private final MapApiService mapApiService;
+    private final ObjectMapper objectMapper;
 
-    public MapStorageController(MapApiService mapApiService) {
+    public MapStorageController(MapApiService mapApiService, ObjectMapper objectMapper) {
         this.mapApiService = mapApiService;
+        this.objectMapper = objectMapper;
     }
 
    @Operation(summary = "맵 리스트 API", description = "등록된 맵리스트를 반환하는 API")
@@ -78,8 +81,11 @@ public class MapStorageController {
             ) {
 
         try {
+            log.info("data_table: {}", uploadDTO.getDataTable());
+            String cleanedDataTable = uploadDTO.getDataTable().replaceAll("[\\r\\n\\t]", "");
+            Map<String, Object> parsedDataTable = objectMapper.readValue(cleanedDataTable, Map.class);
             log.info("upload map...");
-            return ResponseEntity.ok().body(mapApiService.uploadMapFile(userId.getUserId(), images, uploadDTO));
+            return ResponseEntity.ok().body(mapApiService.uploadMapFile(userId.getUserId(), images, uploadDTO, parsedDataTable));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

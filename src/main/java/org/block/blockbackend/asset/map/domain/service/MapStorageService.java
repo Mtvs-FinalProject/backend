@@ -31,7 +31,7 @@ public class MapStorageService {
     }
 
     @Transactional
-    public MapInfo storeMapStorage(List<Map<String, Object>> json, Integer price, String mapName, List<String> imagesURL, String summary, String content, List<String> tags, Editable editable, Long uploader, int player) {
+    public MapInfo storeMapStorage(Map<String, Object> json, Integer price, String mapName, List<String> imagesURL, String summary, String content, List<String> tags, Editable editable, Long uploader, int player) {
         MapInfo mapInfo = new MapInfo(json, price, mapName, imagesURL, summary, content, tags, editable, uploader, player, new Timestamp(System.currentTimeMillis()));
 
         log.info("mapInfo: {}", mapInfo);

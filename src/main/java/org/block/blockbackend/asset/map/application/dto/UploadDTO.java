@@ -13,8 +13,10 @@ import java.util.Map;
 @ToString
 public class UploadDTO {
 
+//    @JsonProperty("data_table")
+//    private Map<String, Object> dataTable;
     @JsonProperty("data_table")
-    private List<Map<String, Object>> dataTable;
+    private String dataTable;
     private int price;
     @JsonProperty("map_name")
     private String mapName;

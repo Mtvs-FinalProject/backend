@@ -20,6 +20,6 @@ public class DownloadFileDTO {
 
     // Json
     @JsonProperty("data_table")
-    private List<Map<String, Object>> dataTable;
+    private Map<String, Object> dataTable;
 
 }

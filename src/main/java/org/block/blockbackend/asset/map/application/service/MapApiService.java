@@ -47,7 +47,7 @@ public class MapApiService {
         return mapList;
     }
 
-    public MapInfo uploadMapFile(Long userId,List<MultipartFile> images, UploadDTO uploadDTO) throws Exception {
+    public MapInfo uploadMapFile(Long userId,List<MultipartFile> images, UploadDTO uploadDTO, Map<String, Object> dataTable) throws Exception {
         Editable editable;
         List<String> imagesURL = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class MapApiService {
         log.info("============Upload imagesURL============\n" + imagesURL);
 
         return mapStorageService.storeMapStorage(
-                uploadDTO.getDataTable(),
+                dataTable,
                 uploadDTO.getPrice(),
                 uploadDTO.getMapName(),
                 imagesURL,
